@@ -5,7 +5,9 @@ name: Comment Triggered Docker Build
 # 触发条件：当在Issue或Pull Request中创建新评论时
 on:
   issue_comment:
-    types: [created]
+    types: [created,edit]
+  issues:
+    types: [opened, edited,labeled]
 
 jobs:
   build-and-push:
