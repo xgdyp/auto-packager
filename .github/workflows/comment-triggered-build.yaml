@@ -56,19 +56,19 @@ jobs:
               body: `🚀 收到构建请求！\n* **目标仓库:** \`${{ steps.parse_comment.outputs.target_repo_url }}\`\n* **开始拉取代码并构建镜像...**\n\n你可以在 [Actions 页面](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) 查看实时日志。`
             });
 
-      # - name: 📥 3. 拉取目标仓库代码
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ${{ steps.parse_comment.outputs.target_repo_name }}
-      #     # 使用 PAT 拉取代码，因为 GITHUB_TOKEN 可能没有权限访问其他私有仓库
-      #     token: ${{ secrets.CROSS_REPO_PAT }} 
-      #     path: './target-repo' # 将代码下载到指定目录
+      - name: 📥 3. 拉取目标仓库代码
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.parse_comment.outputs.target_repo_name }}
+          # 使用 PAT 拉取代码，因为 GITHUB_TOKEN 可能没有权限访问其他私有仓库
+          token: ${{ secrets.CROSS_REPO_PAT }} 
+          path: './target-repo' # 将代码下载到指定目录
 
-      # - name: 🆔 4. 获取代码的短哈希值作为镜像标签
-      #   id: get_sha
-      #   run: |
-      #     cd ./target-repo
-      #     echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: 🆔 4. 获取代码的短哈希值作为镜像标签
+        id: get_sha
+        run: |
+          cd ./target-repo
+          echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       
       # - name: 🐳 5. 登录到 GitHub Container Registry (GHCR)
       #   uses: docker/login-action@v3
