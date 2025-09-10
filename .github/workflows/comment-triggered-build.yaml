@@ -88,7 +88,7 @@ jobs:
           context: ./target-repo  # Dockerfile 所在的目录
           push: true
           # 镜像命名规则: ghcr.io/主控仓库所有者/目标仓库名:代码commit哈希
-          tags: ghcr.io/${{ github.repository_owner }}/${{ steps.parse_comment.outputs.target_repo_name##*/ }}:${{ steps.get_sha.outputs.sha }}
+          tags: ghcr.io/${{ github.repository_owner }}/test:${{ steps.get_sha.outputs.sha }}
           labels: |
             org.opencontainers.image.source=${{ steps.parse_comment.outputs.target_repo_url }}
             org.opencontainers.image.revision=${{ steps.get_sha.outputs.sha }}
