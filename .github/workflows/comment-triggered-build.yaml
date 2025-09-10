@@ -93,17 +93,17 @@ jobs:
             org.opencontainers.image.source=${{ steps.parse_comment.outputs.target_repo_url }}
             org.opencontainers.image.revision=${{ steps.get_sha.outputs.sha }}
       
-      - name: ✅ 8. 成功后回复评论
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `✅ 构建成功！\n\n* **镜像地址:** \`ghcr.io/${{ github.repository_owner }}/${{ steps.parse_comment.outputs.target_repo_name##*/ }}:${{ steps.get_sha.outputs.sha }}\`\n\n你可以使用以下命令拉取镜像：\n\`\`\`bash\ndocker pull ghcr.io/${{ github.repository_owner }}/${{ steps.parse_comment.outputs.target_repo_name##*/ }}:${{ steps.get_sha.outputs.sha }}\n\`\`\``
-            });
+      # - name: ✅ 8. 成功后回复评论
+      #   if: success()
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: `✅ 构建成功！\n\n* **镜像地址:** \`ghcr.io/${{ github.repository_owner }}/${{ steps.parse_comment.outputs.target_repo_name##*/ }}:${{ steps.get_sha.outputs.sha }}\`\n\n你可以使用以下命令拉取镜像：\n\`\`\`bash\ndocker pull ghcr.io/${{ github.repository_owner }}/${{ steps.parse_comment.outputs.target_repo_name##*/ }}:${{ steps.get_sha.outputs.sha }}\n\`\`\``
+      #       });
 
       - name: ❌ 9. 失败后回复评论
         if: failure()
